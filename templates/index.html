@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorGraph - Recipe Suggestions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 mb-3">🍳 FlavorGraph</h1>
+                    <p class="lead">Discover amazing recipes based on ingredients you already have!</p>
+                    <p class="text-muted">Enter your available ingredients and get personalized recipe suggestions with substitutions.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/suggest" method="post">
+                            <div class="mb-3">
+                                <label for="available" class="form-label">Available Ingredients</label>
+                                <textarea class="form-control" id="available" name="available" rows="3" placeholder="Enter ingredients separated by commas (e.g., chicken, garlic, onion)"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="top_k" class="form-label">Top Recipes</label>
+                                    <input type="number" class="form-control" id="top_k" name="top_k" value="5" min="1" max="10">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="max_combo" class="form-label">Max Combo Recipes</label>
+                                    <input type="number" class="form-control" id="max_combo" name="max_combo" value="2" min="1" max="5">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="allow_missing" class="form-label">Allow Missing</label>
+                                    <input type="number" class="form-control" id="allow_missing" name="allow_missing" value="2" min="0" max="10">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Get Suggestions</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h3>Available Recipes</h3>
+                    <ul class="list-group">
+                        {% for recipe in recipes %}
+                        <li class="list-group-item">{{ recipe }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
